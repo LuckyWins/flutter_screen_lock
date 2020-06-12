@@ -8,9 +8,9 @@ import 'circle_input_button.dart';
 
 Future showConfirmPasscode({
   @required BuildContext context,
-  String title = 'Please enter passcode.',
-  String confirmTitle = 'Please enter confirm passcode.',
-  String cancelText = 'Cancel',
+  String title = 'Введите PIN',
+  String confirmTitle = 'Введите новый PIN',
+  String cancelText = 'Отмена',
   int digits = 4,
   DotSecretConfig dotSecretConfig = const DotSecretConfig(),
   void Function(BuildContext, String) onCompleted,
@@ -67,7 +67,7 @@ Future showConfirmPasscode({
 Future showLockScreen({
   @required BuildContext context,
   String correctString,
-  String title = 'Введите ваш PIN',
+  String title = 'Введите PIN',
   String cancelText = 'Отмена',
   int digits = 4,
   DotSecretConfig dotSecretConfig = const DotSecretConfig(),
