@@ -15,7 +15,7 @@ Future showConfirmPasscode({
   DotSecretConfig dotSecretConfig = const DotSecretConfig(),
   void Function(BuildContext, String) onCompleted,
   Color backgroundColor = Colors.white,
-  double backgroundColorOpacity = 0.5,
+  double backgroundColorOpacity = 1,
   CircleInputButtonConfig circleInputButtonConfig =
       const CircleInputButtonConfig(),
 }) {
@@ -435,7 +435,10 @@ class _LockScreenState extends State<LockScreen> {
 
     return FlatButton(
       padding: EdgeInsets.all(0.0),
-      child: Icon(Icons.fingerprint),
+      child: Icon(
+          Icons.fingerprint,
+          color: widget.circleInputButtonConfig.textStyle.color,
+      ),
       onPressed: () {
         if (widget.biometricFunction == null) {
           throw Exception('specify biometricFunction.');
@@ -461,13 +464,17 @@ class _LockScreenState extends State<LockScreen> {
         builder: (context, snapshot) {
           Widget buttonWidget;
           if (snapshot.hasData && snapshot.data > 0) {
-            buttonWidget = Icon(Icons.backspace);
+            buttonWidget = Icon(
+                Icons.backspace,
+                color: widget.circleInputButtonConfig.textStyle.color,
+            );
           } else if (widget.canCancel) {
             buttonWidget = Text(
               widget.cancelText,
               style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.w400
+                  fontWeight: FontWeight.w400,
+                  color: widget.circleInputButtonConfig.textStyle.color,
               ),
               softWrap: false,
               textAlign: TextAlign.center,
