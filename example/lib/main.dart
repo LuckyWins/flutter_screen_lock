@@ -110,7 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   context: context,
                   correctString: '1234',
                   cancelText: 'Close',
-                  deleteText: 'Remove',
                 ),
               ),
               RaisedButton(

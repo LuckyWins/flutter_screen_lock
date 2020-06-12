@@ -10,9 +10,9 @@ class DotSecretConfig {
 
   const DotSecretConfig({
     this.dotSize = 13.0,
-    this.dotBorderColor = Colors.black54,
+    this.dotBorderColor = Colors.black,
     this.padding = const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-    this.enabledColor = Colors.black54,
+    this.enabledColor = Colors.black,
     this.disabledColor = Colors.transparent,
   });
 }

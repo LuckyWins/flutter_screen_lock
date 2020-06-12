@@ -11,7 +11,6 @@ Future showConfirmPasscode({
   String title = 'Please enter passcode.',
   String confirmTitle = 'Please enter confirm passcode.',
   String cancelText = 'Cancel',
-  String deleteText = 'Delete',
   int digits = 4,
   DotSecretConfig dotSecretConfig = const DotSecretConfig(),
   void Function(BuildContext, String) onCompleted,
@@ -36,7 +35,6 @@ Future showConfirmPasscode({
           dotSecretConfig: dotSecretConfig,
           onCompleted: onCompleted,
           cancelText: cancelText,
-          deleteText: deleteText,
           backgroundColor: backgroundColor,
           backgroundColorOpacity: backgroundColorOpacity,
           circleInputButtonConfig: circleInputButtonConfig,
@@ -69,9 +67,8 @@ Future showConfirmPasscode({
 Future showLockScreen({
   @required BuildContext context,
   String correctString,
-  String title = 'Please enter passcode.',
-  String cancelText = 'Cancel',
-  String deleteText = 'Delete',
+  String title = 'Введите ваш PIN',
+  String cancelText = 'Отмена',
   int digits = 4,
   DotSecretConfig dotSecretConfig = const DotSecretConfig(),
   bool canCancel = true,
@@ -80,7 +77,7 @@ Future showLockScreen({
   bool showBiometricFirst = false,
   void Function(BuildContext) biometricFunction,
   Color backgroundColor = Colors.white,
-  double backgroundColorOpacity = 0.5,
+  double backgroundColorOpacity = 1,
   CircleInputButtonConfig circleInputButtonConfig =
       const CircleInputButtonConfig(),
 }) {
@@ -109,7 +106,6 @@ Future showLockScreen({
           onCompleted: onCompleted,
           canCancel: canCancel,
           cancelText: cancelText,
-          deleteText: deleteText,
           canBiometric: canBiometric,
           showBiometricFirst: showBiometricFirst,
           showBiometricFirstController: _showBiometricFirstController,
@@ -154,7 +150,6 @@ class LockScreen extends StatefulWidget {
   final CircleInputButtonConfig circleInputButtonConfig;
   final bool canCancel;
   final String cancelText;
-  final String deleteText;
   final void Function(BuildContext, String) onCompleted;
   final bool canBiometric;
   final bool showBiometricFirst;
@@ -174,7 +169,6 @@ class LockScreen extends StatefulWidget {
     this.rightSideButton,
     this.canCancel = true,
     this.cancelText,
-    this.deleteText,
     this.onCompleted,
     this.canBiometric = false,
     this.showBiometricFirst = false,
@@ -326,6 +320,7 @@ class _LockScreenState extends State<LockScreen> {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 3.5, sigmaY: 3.5),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 _buildTitle(),
                 DotSecretUI(
@@ -425,7 +420,12 @@ class _LockScreenState extends State<LockScreen> {
       margin: EdgeInsets.symmetric(vertical: 20),
       child: Text(
         _isConfirmation ? widget.confirmTitle : widget.title,
-        style: TextStyle(fontSize: 20.0),
+        style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: Colors.black.withOpacity(0.5)
+        ),
       ),
     );
   }
@@ -459,25 +459,26 @@ class _LockScreenState extends State<LockScreen> {
     return StreamBuilder<int>(
         stream: enteredLengthStream.stream,
         builder: (context, snapshot) {
-          String buttonText;
+          Widget buttonWidget;
           if (snapshot.hasData && snapshot.data > 0) {
-            buttonText = widget.deleteText;
+            buttonWidget = Icon(Icons.backspace);
           } else if (widget.canCancel) {
-            buttonText = widget.cancelText;
+            buttonWidget = Text(
+              widget.cancelText,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400
+              ),
+              softWrap: false,
+              textAlign: TextAlign.center,
+            );
           } else {
             return Container();
           }
 
           return FlatButton(
             padding: EdgeInsets.all(0),
-            child: Text(
-              buttonText,
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.055,
-              ),
-              softWrap: false,
-              textAlign: TextAlign.center,
-            ),
+            child: buttonWidget,
             onPressed: () {
               if (snapshot.hasData && snapshot.data > 0) {
                 removedStreamController.sink.add(null);

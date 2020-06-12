@@ -10,7 +10,7 @@ class CircleInputButtonConfig {
 
   const CircleInputButtonConfig({
     this.textStyle,
-    this.backgroundColor = const Color(0xFF757575),
+    this.backgroundColor = Colors.white,
     this.backgroundOpacity = 0.4,
     this.shape,
   });
@@ -32,7 +32,10 @@ class CircleInputButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = config.textStyle ??
         TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.095,
+          fontFamily: 'Roboto',
+//          fontSize: MediaQuery.of(context).size.width * 0.095,
+          fontSize: 36,
+          fontWeight: FontWeight.w400,
         );
 
     return RaisedButton(
