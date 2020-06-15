@@ -18,50 +18,52 @@ Future showConfirmPasscode({
   double backgroundColorOpacity = 1,
   CircleInputButtonConfig circleInputButtonConfig =
       const CircleInputButtonConfig(),
+  GlobalKey<NavigatorState> navKey
 }) {
-  return Navigator.of(context).push(
-    PageRouteBuilder(
-      opaque: false,
-      pageBuilder: (
+  var pageRouteBuilder = PageRouteBuilder(
+    opaque: false,
+    pageBuilder: (
         BuildContext context,
         Animation<double> animation,
         Animation<double> secodaryAnimation,
-      ) {
-        return LockScreen(
-          title: title,
-          confirmTitle: confirmTitle,
-          confirmMode: true,
-          digits: digits,
-          dotSecretConfig: dotSecretConfig,
-          onCompleted: onCompleted,
-          cancelText: cancelText,
-          backgroundColor: backgroundColor,
-          backgroundColorOpacity: backgroundColorOpacity,
-          circleInputButtonConfig: circleInputButtonConfig,
-        );
-      },
-      transitionsBuilder: (
+        ) {
+      return LockScreen(
+        title: title,
+        confirmTitle: confirmTitle,
+        confirmMode: true,
+        digits: digits,
+        dotSecretConfig: dotSecretConfig,
+        onCompleted: onCompleted,
+        cancelText: cancelText,
+        backgroundColor: backgroundColor,
+        backgroundColorOpacity: backgroundColorOpacity,
+        circleInputButtonConfig: circleInputButtonConfig,
+      );
+    },
+    transitionsBuilder: (
         BuildContext context,
         Animation<double> animation,
         Animation<double> secondaryAnimation,
         Widget child,
-      ) {
-        return SlideTransition(
+        ) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0.0, 2.4),
+          end: Offset.zero,
+        ).animate(animation),
+        child: SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(0.0, 2.4),
-            end: Offset.zero,
-          ).animate(animation),
-          child: SlideTransition(
-            position: Tween<Offset>(
-              begin: Offset.zero,
-              end: const Offset(0.0, 2.4),
-            ).animate(secondaryAnimation),
-            child: child,
-          ),
-        );
-      },
-    ),
+            begin: Offset.zero,
+            end: const Offset(0.0, 2.4),
+          ).animate(secondaryAnimation),
+          child: child,
+        ),
+      );
+    },
   );
+  return navKey == null
+      ? Navigator.of(context).push(pageRouteBuilder)
+      : navKey.currentState.push(pageRouteBuilder);
 }
 
 Future showLockScreen({
@@ -80,63 +82,65 @@ Future showLockScreen({
   double backgroundColorOpacity = 1,
   CircleInputButtonConfig circleInputButtonConfig =
       const CircleInputButtonConfig(),
+  GlobalKey<NavigatorState> navKey
 }) {
-  return Navigator.of(context).push(
-    PageRouteBuilder(
-      opaque: false,
-      pageBuilder: (
+  var pageRouteBuilder = PageRouteBuilder(
+    opaque: false,
+    pageBuilder: (
         BuildContext context,
         Animation<double> animation,
         Animation<double> secodaryAnimation,
-      ) {
-        var _showBiometricFirstController = StreamController<void>();
+        ) {
+      var _showBiometricFirstController = StreamController<void>();
 
-        animation.addStatusListener((status) {
-          // Calling the biometric on completion of the animation.
-          if (status == AnimationStatus.completed) {
-            _showBiometricFirstController.add(null);
-          }
-        });
+      animation.addStatusListener((status) {
+        // Calling the biometric on completion of the animation.
+        if (status == AnimationStatus.completed) {
+          _showBiometricFirstController.add(null);
+        }
+      });
 
-        return LockScreen(
-          correctString: correctString,
-          title: title,
-          digits: digits,
-          dotSecretConfig: dotSecretConfig,
-          onCompleted: onCompleted,
-          canCancel: canCancel,
-          cancelText: cancelText,
-          canBiometric: canBiometric,
-          showBiometricFirst: showBiometricFirst,
-          showBiometricFirstController: _showBiometricFirstController,
-          biometricFunction: biometricFunction,
-          backgroundColor: backgroundColor,
-          backgroundColorOpacity: backgroundColorOpacity,
-          circleInputButtonConfig: circleInputButtonConfig,
-        );
-      },
-      transitionsBuilder: (
+      return LockScreen(
+        correctString: correctString,
+        title: title,
+        digits: digits,
+        dotSecretConfig: dotSecretConfig,
+        onCompleted: onCompleted,
+        canCancel: canCancel,
+        cancelText: cancelText,
+        canBiometric: canBiometric,
+        showBiometricFirst: showBiometricFirst,
+        showBiometricFirstController: _showBiometricFirstController,
+        biometricFunction: biometricFunction,
+        backgroundColor: backgroundColor,
+        backgroundColorOpacity: backgroundColorOpacity,
+        circleInputButtonConfig: circleInputButtonConfig,
+      );
+    },
+    transitionsBuilder: (
         BuildContext context,
         Animation<double> animation,
         Animation<double> secondaryAnimation,
         Widget child,
-      ) {
-        return SlideTransition(
+        ) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0.0, 2.4),
+          end: Offset.zero,
+        ).animate(animation),
+        child: SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(0.0, 2.4),
-            end: Offset.zero,
-          ).animate(animation),
-          child: SlideTransition(
-            position: Tween<Offset>(
-              begin: Offset.zero,
-              end: const Offset(0.0, 2.4),
-            ).animate(secondaryAnimation),
-            child: child,
-          ),
-        );
-      },
-    ),
+            begin: Offset.zero,
+            end: const Offset(0.0, 2.4),
+          ).animate(secondaryAnimation),
+          child: child,
+        ),
+      );
+    },
   );
+  return navKey == null
+      ? Navigator.of(context).push(pageRouteBuilder)
+      : navKey.currentState.push(pageRouteBuilder);
 }
 
 class LockScreen extends StatefulWidget {
