@@ -9,7 +9,12 @@ class CircleInputButtonConfig {
   final ShapeBorder shape;
 
   const CircleInputButtonConfig({
-    this.textStyle,
+    this.textStyle = const TextStyle(
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w400,
+      fontSize: 36,
+      color: Color(0xff383A51)
+    ),
     this.backgroundColor = Colors.white,
     this.backgroundOpacity = 0.4,
     this.shape,
