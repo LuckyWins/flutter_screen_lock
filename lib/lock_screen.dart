@@ -249,7 +249,7 @@ class _LockScreenState extends State<LockScreen> {
           widget.showBiometricFirstController.stream.listen((_) {
             widget.biometricAuthenticate(context).then((unlocked) {
               if (unlocked) {
-                widget.onUnlocked();
+                widget?.onUnlocked?.call();
                 Navigator.of(context).pop();
               }
             });
@@ -261,7 +261,7 @@ class _LockScreenState extends State<LockScreen> {
                 () {
               widget.biometricAuthenticate(context).then((unlocked) {
                 if (unlocked) {
-                  widget.onUnlocked();
+                  widget?.onUnlocked?.call();
                   Navigator.of(context).pop();
                 }
               });
@@ -334,7 +334,7 @@ class _LockScreenState extends State<LockScreen> {
           Navigator.of(context).maybePop();
         }
 
-        widget.onUnlocked();
+        widget?.onUnlocked?.call();
       } else {
         // send invalid status to DotSecretUI
         validateStreamController.add(false);
@@ -496,7 +496,7 @@ class _LockScreenState extends State<LockScreen> {
           if (widget.biometricAuthenticate != null) {
             widget.biometricAuthenticate(context).then((unlocked) {
               if (unlocked) {
-                widget.onUnlocked();
+                widget?.onUnlocked?.call();
                 Navigator.of(context).pop();
               }
             });
