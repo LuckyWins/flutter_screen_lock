@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CircleInputButtonConfig {
   // final double fontSize;
@@ -36,8 +37,9 @@ class CircleInputButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = config.textStyle ??
-        TextStyle(
-          fontFamily: 'Roboto',
+//        TextStyle(
+        GoogleFonts.roboto(
+//          fontFamily: 'Roboto',
 //          fontSize: MediaQuery.of(context).size.width * 0.095,
           fontSize: 36,
           fontWeight: FontWeight.w400,

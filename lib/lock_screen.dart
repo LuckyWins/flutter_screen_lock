@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dot_secret_ui.dart';
 import 'circle_input_button.dart';
 
@@ -466,8 +467,9 @@ class _LockScreenState extends State<LockScreen> {
       margin: EdgeInsets.symmetric(vertical: 20),
       child: Text(
         _isConfirmation ? widget.confirmTitle : widget.title,
-        style: TextStyle(
-            fontFamily: 'Roboto',
+//        style: TextStyle(
+        style: GoogleFonts.roboto(
+//            fontFamily: 'Roboto',
             fontSize: 18,
             fontWeight: FontWeight.w400,
             color: Colors.black.withOpacity(0.5)
@@ -528,7 +530,8 @@ class _LockScreenState extends State<LockScreen> {
           } else if (widget.canCancel) {
             buttonWidget = Text(
               widget.cancelText,
-              style: TextStyle(
+              style: GoogleFonts.roboto(
+//              style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color: widget.circleInputButtonConfig.textStyle.color,
